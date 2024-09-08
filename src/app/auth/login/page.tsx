@@ -34,7 +34,7 @@ function PatientLogin() {
           <p className="text-4xl text-headerText font-bold">Login</p>
 
           <div className="mt-[12%]">
-            <label className="block text-md  text-labelText">
+            <label className="block text-sm  text-labelText">
               {loginLabel === "Email" ? "Email Address" : "Phone Number"}
             </label>
             <input
@@ -43,22 +43,22 @@ function PatientLogin() {
                   ? "kithminasiriwardaan@gmail.com"
                   : "0123456789"
               }
-              className="w-full rounded-lg text-md h-12 mt-[1.5%]"
+              className="w-full rounded-lg text-sm h-12 mt-[1.5%]"
             />
           </div>
 
-          <div className="w-full rounded-lg h-12 mt-[6%]">
+          <div className="w-full rounded-lg text-sm  h-12 mt-[6%]">
             <CommonBtn label="Send OTP" onClick={handleSubmitLogin} />
           </div>
 
-          <div className="flex justify-center mt-[1%]">
+          <div className="flex justify-center text-sm mt-[1%]">
             <p className="text-blueText">Or Continue With Phone</p>
           </div>
         </div>
       </div>
 
       {/* FOOTER */}
-      <div className="text-center text-sm text-blueText mx-[15%] mb-[15%]">
+      <div className="text-center text-[10px] text-blueText mx-[25%] mb-[15%]">
         <p>
           Visit your nearest channeling center to create an optical insight
           account

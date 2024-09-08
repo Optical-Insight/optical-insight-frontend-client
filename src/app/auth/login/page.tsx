@@ -30,7 +30,7 @@ function PatientLogin() {
         </div>
 
         {/* FORM */}
-        <div className="mt-[8.901vh] mx-[3.477vh]">
+        <div className="mt-[8.901vh] mx-[7.125vw]">
           <p className="text-[40px] text-headerText font-bold">Login</p>
 
           <div className="mt-[5.512vh]">

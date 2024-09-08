@@ -18,7 +18,7 @@ function PatientLogin() {
 
   return (
     <div className="w-screen h-screen flex flex-col justify-between bg-lightBg">
-      <div className="mt-[14.047vh]">
+      <div className="mt-[35%]">
         {/* HEADER */}
         <div className="flex flex-col items-center">
           <Image
@@ -30,15 +30,15 @@ function PatientLogin() {
         </div>
 
         {/* FORM */}
-        <div className="mt-[8.901vh] mx-[3.477vh]">
-          <p className="text-[40px] text-headerText font-bold">Login</p>
+        <div className="mt-[24%] mx-[6%]">
+          <p className="text-4xl text-headerText font-bold">Login</p>
 
-          <div className="mt-[5.512vh]">
+          <div className="mt-[12%]">
             <label className="block text-sm text-labelText">
               {loginLabel === "Email" ? "Email Address" : "Phone Number"}
             </label>
             <input
-              className="w-full pl-1 rounded-lg text-sm text-black h-[6.079vh] mt-[1.164vh]"
+              className="w-full pl-1 rounded-lg text-sm text-black h-12 mt-[1.5%]"
               placeholder={
                 loginLabel === "Email"
                   ? "kithminasiriwardaan@gmail.com"
@@ -47,11 +47,11 @@ function PatientLogin() {
             />
           </div>
 
-          <div className="w-full rounded-lg text-sm  h-[6.074vh] mt-[3.374vh]">
+          <div className="w-full rounded-lg text-sm  h-12 mt-[6%]">
             <CommonBtn label="Send OTP" onClick={handleSubmitLogin} />
           </div>
 
-          <div className="flex justify-center text-sm mt-[1.131vh]">
+          <div className="flex justify-center text-sm mt-[1%]">
             <p
               className="text-blueText cursor-pointer"
               onClick={handleChangeLoginMethod}
@@ -63,7 +63,7 @@ function PatientLogin() {
       </div>
 
       {/* FOOTER */}
-      <div className="text-center text-[10px] text-blueText mx-[25%] mb-[6.466vh]">
+      <div className="text-center text-[10px] text-blueText mx-[25%] mb-[15%]">
         <p>
           Visit your nearest channeling center to create an optical insight
           account

@@ -18,6 +18,7 @@ const config: Config = {
         //backgrounds
         lightBg: "#F6F8FF",
         blueBg: "#0E2249",
+        blueBgTwo: "#14367B",
         lightBlueBg: "#ECF1FC",
         lightBlueBgTwo: "#E8EFFB",
         lightBlueBgThree: "#E2ECF7",
@@ -38,6 +39,8 @@ const config: Config = {
         disabledText: "#CACACA",
         inputText: "#808080",
         lightText: "#7F7F7F",
+        grayText: "#545454",
+        grayLightText: "#989898",
 
         //buttons
         buttonPrimary: "#14367B",

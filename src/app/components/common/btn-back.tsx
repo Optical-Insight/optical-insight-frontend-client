@@ -1,19 +1,14 @@
-// components/BackButton.tsx
-
 import Image from "next/image";
-// import { useRouter } from "next/router";
 
-const BackButton = () => {
-  // const router = useRouter();
+interface BackButtonProps {
+  onClick: () => void;
+}
 
-  const goBack = () => {
-    // router.back();
-  };
-
+const BackButton: React.FC<BackButtonProps> = ({ onClick }) => {
   return (
     <button
       className="cursor-pointer bg-blueBgTwo flex justify-center items-center h-[37px] w-[37px] rounded-full"
-      onClick={goBack}
+      onClick={onClick}
     >
       <Image
         src="/assets/icons/back-icon.png"

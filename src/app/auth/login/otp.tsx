@@ -4,10 +4,11 @@ import BackButton from "@/app/components/common/btn-back";
 import { Flex, Input } from "antd";
 import type { GetProps } from "antd";
 import CommonBtn from "@/app/components/common/button";
+import { OTPDataProps } from "@/utils/auth";
 
 type OTPProps = GetProps<typeof Input.OTP>;
 
-function PatientLoginOTP() {
+function PatientLoginOTP({ loginLabel, setStep }: OTPDataProps) {
   const onChange: OTPProps["onChange"] = (text) => {
     console.log("onChange:", text);
   };
@@ -18,24 +19,33 @@ function PatientLoginOTP() {
 
   const verifyOTP = () => {
     console.log("OTP Verified");
+    setStep(3);
   };
 
   const resendOTP = () => {
     console.log("Resend OTP");
   };
 
+  const handleBackBtnClicked = () => {
+    setStep(1);
+  };
+
   return (
-    <div className="w-screen h-screen flex flex-col justify-between bg-lightBg text-black">
+    <div className="flex flex-row justify-between">
       {/* Back Btn */}
       <div className="mt-[4.1vh] mx-[7.125vw]">
-        <BackButton />
+        <BackButton onClick={handleBackBtnClicked} />
         <p className="mt-[7.405vh] font-bold text-2xl">OTP Verification</p>
         <p className="mt-[2.225vh] text-sm text-grayText">
-          We sent an OTP Code to {"+947 *** **47"} enter 5 digit code that
-          mentioned in the message.
+          We sent an OTP Code to{" "}
+          {loginLabel === "Email"
+            ? "kith****.*@opticalin.com"
+            : "+947 *** **47"}{" "}
+          enter 5 digit code that mentioned in the{" "}
+          {loginLabel === "Email" ? "email" : "SMS"}.
         </p>
 
-        <div className="mt-[4.451vh]">
+        <div className="mt-[4.451vh] flex justify-center items-center">
           <Flex gap="middle" align="flex-start" vertical>
             <Input.OTP
               //formatter={(str) => str.toUpperCase()}

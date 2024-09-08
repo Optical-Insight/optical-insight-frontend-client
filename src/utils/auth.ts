@@ -20,3 +20,14 @@ export interface AuthData {
   userType: string;
   userId: string;
 }
+
+export interface LoginDataProps {
+  loginLabel: string;
+  setLoginLabel: (label: string) => void;
+  setStep: (step: number) => void;
+}
+
+export interface OTPDataProps {
+  loginLabel: string;
+  setStep: (step: number) => void;
+}

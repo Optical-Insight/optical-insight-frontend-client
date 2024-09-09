@@ -5,7 +5,6 @@ interface ReportListCardProps {
 }
 
 const ReportListCard = ({ name, docName, timestamp }: ReportListCardProps) => {
-  console.log(name, docName, timestamp);
   return (
     <div className="px-[3.817vw] py-[2.086vh] rounded-lg bg-white flex flex-row gap-[4.5vw]">
       <div className="h-[7.395vh] w-[7.395vh] bg-blueBgTwo rounded-xl flex flex-col justify-center items-center">

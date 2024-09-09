@@ -4,4 +4,7 @@ export interface DoctorsAllProps {
   email: string;
   userId: string;
   type: string;
+  specialization: string;
+  experience: string;
+  rating: string;
 }

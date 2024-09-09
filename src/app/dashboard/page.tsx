@@ -113,7 +113,7 @@ function HomePage() {
           </div>
 
           {/* Doctor Cards */}
-          <div className="flex gap-[3.053vw]">
+          {/* <div className="flex gap-[3.053vw]">
             <DoctorCard
               imageUrl={"/assets/images/doc.png"}
               name={"Stephanie"}
@@ -124,6 +124,31 @@ function HomePage() {
               name={"Stephanie"}
               price={"2500.00"}
             />
+          </div> */}
+
+          {/* Doctor Cards */}
+          <div className="flex gap-[3.053vw] overflow-x-auto whitespace-nowrap">
+            <DoctorCard
+              imageUrl={"/assets/images/doc.png"}
+              name={"Stephanie"}
+              price={"2500.00"}
+            />
+            <DoctorCard
+              imageUrl={"/assets/images/doc.png"}
+              name={"Stephanie"}
+              price={"2500.00"}
+            />
+            <DoctorCard
+              imageUrl={"/assets/images/doc.png"}
+              name={"Stephanie"}
+              price={"2500.00"}
+            />
+            <DoctorCard
+              imageUrl={"/assets/images/doc.png"}
+              name={"Stephanie"}
+              price={"2500.00"}
+            />
+            {/* You can add more cards here and they will be scrollable horizontally */}
           </div>
         </div>
       </div>

@@ -3,12 +3,81 @@ import React from "react";
 import CommonBtn from "@/app/components/common/button";
 import { LoginDataProps } from "@/utils/auth";
 import Image from "next/image";
+import { useAuth } from "@/context/AuthContext";
+import axios from "axios";
+import { LOGIN_USING_MOBILE_URL } from "@/constants/config";
 
-function PatientLogin({ loginLabel, setLoginLabel, setStep }: LoginDataProps) {
-  const handleSubmitLogin = () => {
-    console.log("Login clicked");
-    setStep(2);
+function PatientLogin({
+  loginLabel,
+  setLoginLabel,
+  setStep,
+  email,
+  setEmail,
+  mobileNo,
+  setMobileNo,
+}: LoginDataProps) {
+  const { isAuthenticated } = useAuth();
+
+  const LoginUsingMobile = async () => {
+    console.log("isAuthenticated", isAuthenticated);
+    if (!isAuthenticated) {
+      console.log("LoginUsingMobile 2");
+      axios
+        .post(LOGIN_USING_MOBILE_URL, {
+          phone: mobileNo,
+        })
+        .then((response) => {
+          console.log(response);
+          setStep(2);
+        })
+        .catch((error) => {
+          console.error("Error in Login:", error);
+        });
+    }
   };
+
+  const handleSubmitLogin = () => {
+    if (loginLabel === "Email") {
+      console.log("Email: ", email);
+    } else {
+      console.log("Mobile: ", mobileNo);
+      LoginUsingMobile();
+    }
+  };
+
+  // const LoginUsingEmail = async (e: any) => {
+  //   if (!isAuthenticated) {
+  //     e.preventDefault();
+  //     axios
+  //       .post(LOGIN_USING_MOBILE_URL, {
+  //         email,
+  //       })
+  //       .then((response) => {
+  //         console.log("Login Success:", response.data);
+  //         //login(response.data);
+  //       })
+  //       .catch((error) => {
+  //         console.error("Error in Login:", error);
+  //       });
+  //   }
+  // };
+
+  // const verifyUsingEmail = async (e: any) => {
+  //   if (!isAuthenticated) {
+  //     e.preventDefault();
+  //     axios
+  //       .post(VERIFY_USING_MOBILE_URL, {
+  //         email,
+  //       })
+  //       .then((response) => {
+  //         console.log("Login Success:", response.data);
+  //         //login(response.data);
+  //       })
+  //       .catch((error) => {
+  //         console.error("Error in Login:", error);
+  //       });
+  //   }
+  // };
 
   const handleChangeLoginMethod = () => {
     setLoginLabel(loginLabel === "Email" ? "Phone" : "Email");
@@ -39,9 +108,14 @@ function PatientLogin({ loginLabel, setLoginLabel, setStep }: LoginDataProps) {
               className="w-full pl-1 rounded-lg text-sm text-black h-[6.079vh] mt-[1.164vh]"
               placeholder={
                 loginLabel === "Email"
-                  ? "kithminasiriwardaan@gmail.com"
+                  ? "kithminasiriwardana@gmail.com"
                   : "0123456789"
               }
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                loginLabel === "Email"
+                  ? setEmail(event.target.value)
+                  : setMobileNo(event.target.value);
+              }}
             />
           </div>
 

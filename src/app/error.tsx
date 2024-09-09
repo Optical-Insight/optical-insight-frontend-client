@@ -23,7 +23,7 @@ const Custom500 = () => {
       </p>
       <button
         className="btn-primary  bg-buttonPrimary py-2 px-3 rounded-md"
-        onClick={() => router.replace("/dashboard/home")}
+        onClick={() => router.replace("/dashboard")}
       >
         Go back to Home
       </button>

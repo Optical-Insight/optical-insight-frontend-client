@@ -19,16 +19,14 @@ function PatientLogin({
   const { isAuthenticated } = useAuth();
 
   const LoginUsingMobile = async () => {
-    console.log("isAuthenticated", isAuthenticated);
     if (!isAuthenticated) {
-      console.log("LoginUsingMobile 2");
+      setStep(2);
       axios
         .post(LOGIN_USING_MOBILE_URL, {
           phone: mobileNo,
         })
         .then((response) => {
           console.log(response);
-          setStep(2);
         })
         .catch((error) => {
           console.error("Error in Login:", error);

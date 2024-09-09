@@ -1,12 +1,44 @@
 "use client";
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 import HomeCard from "../components/dashboard/home-card";
 import DoctorCard from "../components/dashboard/doctor-card";
 import { useRouter } from "next/navigation";
+import type { MenuProps } from "antd";
+import { Dropdown } from "antd";
+import { useAuth } from "@/context/AuthContext";
+import ModalConfirm from "../components/common/modal-confirm";
 
 function HomePage() {
   const router = useRouter();
+  const { logout } = useAuth();
+
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const handleLogout = () => {
+    setIsModalVisible(true);
+  };
+
+  const confirmLogout = () => {
+    setIsModalVisible(false);
+    logout();
+  };
+
+  const items: MenuProps["items"] = [
+    {
+      key: "1",
+      label: <div className="font-semibold">Profile</div>,
+    },
+    {
+      key: "2",
+      label: (
+        <div className="font-semibold text-red-600" onClick={handleLogout}>
+          Logout
+        </div>
+      ),
+    },
+  ];
+
   return (
     <div className="w-screen h-screen flex flex-col bg-lightBg text-black">
       <div className=" my-[3vh] mx-[7.125vw]">
@@ -32,12 +64,14 @@ function HomePage() {
 
           {/* Profile */}
           <div className="h-[6.676vh] w-[6.676vh] flex justify-center items-center">
-            <Image
-              src={"/assets/images/profile-icon.png"}
-              alt={"logo"}
-              height={48}
-              width={48}
-            />
+            <Dropdown menu={{ items }} placement="bottomRight">
+              <Image
+                src={"/assets/images/profile-icon.png"}
+                alt={"logo"}
+                height={48}
+                width={48}
+              />
+            </Dropdown>
           </div>
         </div>
 
@@ -93,8 +127,17 @@ function HomePage() {
           </div>
         </div>
       </div>
+
+      <ModalConfirm
+        title="Logout Confirmation"
+        message="Are you sure you want to logout?"
+        confirmLabel="Logout"
+        isOpen={isModalVisible}
+        onClose={() => setIsModalVisible(false)}
+        onConfirm={confirmLogout}
+      />
     </div>
   );
 }
-
+424433;
 export default HomePage;

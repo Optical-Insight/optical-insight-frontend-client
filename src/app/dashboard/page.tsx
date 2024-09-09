@@ -57,7 +57,7 @@ function HomePage() {
 
         {/* Footer */}
         <div className="mt-[2.782vh] flex flex-col">
-          <div className="mt-[2.782vh] flex items-center justify-between">
+          <div className="flex items-center justify-between">
             <p className="font-bold text-[16px]">Suggested Doctors</p>
             <button
               className="bg-transparent text-grayText rounded-lg px-[3.75vw] py-[1.25vh]

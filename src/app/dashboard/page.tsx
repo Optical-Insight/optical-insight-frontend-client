@@ -3,8 +3,10 @@ import Image from "next/image";
 import React from "react";
 import HomeCard from "../components/dashboard/home-card";
 import DoctorCard from "../components/dashboard/doctor-card";
+import { useRouter } from "next/navigation";
 
 function HomePage() {
+  const router = useRouter();
   return (
     <div className="w-screen h-screen flex flex-col bg-lightBg text-black">
       <div className=" my-[3vh] mx-[7.125vw]">
@@ -44,14 +46,17 @@ function HomePage() {
           <HomeCard
             imageUrl={"/assets/images/report-bg.png"}
             text={"My Report Results"}
+            onClick={() => router.replace("/reports")}
           />
           <HomeCard
             imageUrl={"/assets/images/history-bg.png"}
             text={"My Medical History"}
+            onClick={() => {}}
           />
           <HomeCard
             imageUrl={"/assets/images/doctor-bg.png"}
-            text={"My Recent Doctors"}
+            text={"View All Doctors"}
+            onClick={() => router.replace("/doctors")}
           />
         </div>
 

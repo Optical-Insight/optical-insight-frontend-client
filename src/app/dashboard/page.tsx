@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import HomeCard from "../components/dashboard/home-card";
 import DoctorCard from "../components/dashboard/doctor-card";
 import { useRouter } from "next/navigation";
@@ -8,12 +8,26 @@ import type { MenuProps } from "antd";
 import { Dropdown } from "antd";
 import { useAuth } from "@/context/AuthContext";
 import ModalConfirm from "../components/common/modal-confirm";
+import { useDoctors } from "@/context/DoctorsContext";
+import { DoctorsAllProps } from "@/utils/doctor";
 
 function HomePage() {
   const router = useRouter();
-  const { logout } = useAuth();
-
+  const { isAuthenticated, logout, userData } = useAuth();
+  const { doctors, fetchAllDoctors } = useDoctors();
   const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const diseases = "glaucoma";
+
+  const filteredDoctors = doctors.filter((doctor) =>
+    doctor.specialization.toLowerCase().includes(diseases.toLowerCase())
+  );
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      fetchAllDoctors();
+    }
+  }, [isAuthenticated]);
 
   const handleLogout = () => {
     setIsModalVisible(true);
@@ -23,6 +37,8 @@ function HomePage() {
     setIsModalVisible(false);
     logout();
   };
+
+  console.log("Doctors:", doctors);
 
   const items: MenuProps["items"] = [
     {
@@ -57,7 +73,9 @@ function HomePage() {
 
             {/* Name */}
             <div className="flex flex-col ml-[4.132vw] justify-center">
-              <p className="font-bold text-lg">Hi {"Kithmina,"}</p>
+              <p className="font-bold text-lg">
+                Hi {userData?.name.split(" ")[0]},
+              </p>
               <p className="ftext-lg">Welcome Back!</p>
             </div>
           </div>
@@ -112,43 +130,19 @@ function HomePage() {
             </button>
           </div>
 
-          {/* Doctor Cards */}
-          {/* <div className="flex gap-[3.053vw]">
-            <DoctorCard
-              imageUrl={"/assets/images/doc.png"}
-              name={"Stephanie"}
-              price={"2500.00"}
-            />
-            <DoctorCard
-              imageUrl={"/assets/images/doc.png"}
-              name={"Stephanie"}
-              price={"2500.00"}
-            />
-          </div> */}
-
-          {/* Doctor Cards */}
-          <div className="flex gap-[3.053vw] overflow-x-auto whitespace-nowrap">
-            <DoctorCard
-              imageUrl={"/assets/images/doc.png"}
-              name={"Stephanie"}
-              price={"2500.00"}
-            />
-            <DoctorCard
-              imageUrl={"/assets/images/doc.png"}
-              name={"Stephanie"}
-              price={"2500.00"}
-            />
-            <DoctorCard
-              imageUrl={"/assets/images/doc.png"}
-              name={"Stephanie"}
-              price={"2500.00"}
-            />
-            <DoctorCard
-              imageUrl={"/assets/images/doc.png"}
-              name={"Stephanie"}
-              price={"2500.00"}
-            />
-            {/* You can add more cards here and they will be scrollable horizontally */}
+          <div className="flex mt-2 gap-[3.053vw] overflow-x-auto whitespace-nowrap">
+            {filteredDoctors
+              .slice()
+              .sort((a: any, b: any) => b.rating - a.rating)
+              .map((doctor: DoctorsAllProps) => (
+                <DoctorCard
+                  key={doctor.userId}
+                  imageUrl={"/assets/images/blank-profile-picture.png"}
+                  name={doctor.name.split(" ")[0]} // Show only the first name
+                  price={doctor.fees}
+                  rating={doctor.rating}
+                />
+              ))}
           </div>
         </div>
       </div>

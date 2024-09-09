@@ -3,17 +3,20 @@ import React, { useEffect, useState } from "react";
 import BackButton from "../components/common/btn-back";
 import DoctorsPageCard from "../components/doctors/all-doctor-card";
 import { useRouter } from "next/navigation";
-import { GET_ALL_USERS_BY_TYPE_URL } from "@/constants/config";
-import axios from "axios";
+// import { GET_ALL_USERS_BY_TYPE_URL } from "@/constants/config";
+// import axios from "axios";
 import { useAuth } from "@/context/AuthContext";
 import { DoctorsAllProps } from "@/utils/doctor";
+import { useDoctors } from "@/context/DoctorsContext";
 
 function DoctorsPage() {
-  const { isAuthenticated, storedAuthData } = useAuth();
+  const { isAuthenticated } = useAuth();
   const router = useRouter();
 
-  const [doctors, setDoctors] = useState<DoctorsAllProps[]>([]);
+  // const [doctors, setDoctors] = useState<DoctorsAllProps[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
+
+  const { doctors, fetchAllDoctors } = useDoctors();
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
@@ -25,23 +28,23 @@ function DoctorsPage() {
       doctor.specialization.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  const fetchAllDoctors = async () => {
-    try {
-      const response = await axios.get(GET_ALL_USERS_BY_TYPE_URL, {
-        headers: {
-          Authorization: `Bearer ${storedAuthData.accessToken}`,
-          "Content-Type": "application/json",
-        },
-      });
-      setDoctors(response.data);
-      console.log("Doctors data", response.data);
-    } catch (err: any) {
-      console.error(
-        "Error in retrieving data",
-        err.response?.data || err.message
-      );
-    }
-  };
+  // const fetchAllDoctors = async () => {
+  //   try {
+  //     const response = await axios.get(GET_ALL_USERS_BY_TYPE_URL, {
+  //       headers: {
+  //         Authorization: `Bearer ${storedAuthData.accessToken}`,
+  //         "Content-Type": "application/json",
+  //       },
+  //     });
+  //     setDoctors(response.data);
+  //     console.log("Doctors data", response.data);
+  //   } catch (err: any) {
+  //     console.error(
+  //       "Error in retrieving data",
+  //       err.response?.data || err.message
+  //     );
+  //   }
+  // };
 
   useEffect(() => {
     if (isAuthenticated) {

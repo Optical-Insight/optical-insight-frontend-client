@@ -22,7 +22,8 @@ function PatientLoginOTP({
   const [otpCode, setOtpCode] = useState("");
 
   const onChange: OTPProps["onChange"] = (text) => {
-    setOtpCode(text);
+    const numericText = text.replace(/[^0-9]/g, "");
+    setOtpCode(numericText.toString());
   };
 
   const sharedProps: OTPProps = {

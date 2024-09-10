@@ -1,12 +1,27 @@
+import { useRouter } from "next/navigation";
+
 interface ReportListCardProps {
   name: string;
   docName: string;
   timestamp: string;
+  id: string;
 }
 
-const ReportListCard = ({ name, docName, timestamp }: ReportListCardProps) => {
+const ReportListCard = ({
+  name,
+  docName,
+  timestamp,
+  id,
+}: ReportListCardProps) => {
+  const router = useRouter();
+  const HandleRoute = () => {
+    router.push(`/viewReport/${id}`);
+  };
   return (
-    <div className="px-[3.817vw] py-[2.086vh] rounded-lg bg-white flex flex-row gap-[4.5vw]">
+    <div
+      className="px-[3.817vw] py-[2.086vh] rounded-lg bg-white flex flex-row gap-[4.5vw] cursor-pointer"
+      onClick={HandleRoute}
+    >
       <div className="h-[7.395vh] w-[7.395vh] bg-blueBgTwo rounded-xl flex flex-col justify-center items-center">
         <p className="font-bold text-[16px] text-white">06</p>
         <p className="font-bold text-[16px] text-white">SEP</p>

@@ -31,16 +31,19 @@ function ReportsListPage() {
             name="Eye Checkup - 06.09.2024"
             docName="Dr.Jenifer Perera"
             timestamp="06.09.2024 - 10:30 AM"
+            id="2531"
           />
           <ReportListCard
             name="Eye Checkup - 03.09.2024"
             docName="Dr.Shehan Samaradiwakara"
             timestamp="03.09.2024 - 09:42 AM"
+            id="2531d"
           />
           <ReportListCard
             name="Eye Checkup - 30.08.2024"
             docName="Dr.Malcom Merlin"
             timestamp="30.08.2024 - 01.26 PM"
+            id="253341"
           />
         </div>
       </div>

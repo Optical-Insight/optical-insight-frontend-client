@@ -23,7 +23,9 @@ const config: Config = {
       colors: {
         //backgrounds
         lightBg: "#F6F8FF",
+        lightBlack: "#222222",
         blueBg: "#0E2249",
+        bluewWhite: "#F0F5FB",
         blueBgTwo: "#14367B",
         lightBlueBg: "#ECF1FC",
         lightBlueBgTwo: "#E8EFFB",
@@ -35,6 +37,7 @@ const config: Config = {
         greenishBlueBg: "#62c8d6",
 
         //texts
+        lightGrayText: "#787680",
         headerText: "#262E34",
         labelText: "#4A4844",
         buttonText: "#FFFFFF",
@@ -47,7 +50,7 @@ const config: Config = {
         lightText: "#7F7F7F",
         grayText: "#545454",
         grayLightText: "#989898",
-        greenText: "67CCD1",
+        greenText: "#67CCD1",
 
         //buttons
         buttonPrimary: "#14367B",

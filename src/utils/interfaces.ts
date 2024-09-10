@@ -31,6 +31,13 @@ export interface CommonBtnProps {
   // height: number;
 }
 
+export interface IconBtn {
+  icon: React.ReactNode;
+  label: string;
+  onClick: () => void;
+  type?: string;
+}
+
 export interface SidebarItemProps {
   iconSrc: string;
   iconSrcActive: string;

@@ -8,6 +8,7 @@ import { OTPDataProps } from "@/utils/auth";
 import axios from "axios";
 import { VERIFY_USING_MOBILE_URL } from "@/constants/config";
 import { useAuth } from "@/context/AuthContext";
+import { Toaster, toast } from "react-hot-toast";
 
 type OTPProps = GetProps<typeof Input.OTP>;
 
@@ -43,6 +44,9 @@ function PatientLoginOTP({
           login(response.data);
         })
         .catch((error) => {
+          toast.error("Invalid OTP. Please try again.", {
+            duration: 4000,
+            position: "top-center",});
           console.error("Error in Login:", error);
         });
     }
@@ -62,6 +66,26 @@ function PatientLoginOTP({
   };
 
   return (
+    <div>
+      <div><Toaster
+      position="top-right"
+      reverseOrder={false}
+      toastOptions={{
+        
+        success: {
+          style: {
+            background: 'rgb(219, 234, 254)'
+            
+          },
+        },
+        error: {
+          style: {
+            background: 'rgb(219, 234, 254)'
+            
+          },
+        },
+      }}/></div>
+    
     <div className="flex flex-row justify-between">
       {/* Back Btn */}
       <div className="mt-[4.1vh] mx-[7.125vw]">
@@ -95,6 +119,7 @@ function PatientLoginOTP({
           </p>
         </div>
       </div>
+    </div>
     </div>
   );
 }

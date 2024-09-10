@@ -14,6 +14,9 @@ function ViewReport() {
 
   useEffect(() => {
     // Check if the PDF file exists
+    setPdfUrl(
+      "https://courseweb.sliit.lk/pluginfile.php/389603/mod_resource/content/1/Lab%20Sheet%20-%20August%2031st%20-%20Doc%20A.pdf"
+    );
     fetch(pdfUrl)
       .then((response) => {
         if (!response.ok) {

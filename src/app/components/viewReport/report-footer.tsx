@@ -1,5 +1,4 @@
 import React from "react";
-import Image from "next/image";
 import { IoLocationSharp } from "react-icons/io5";
 import { IoMdCall } from "react-icons/io";
 import { TbWorldLongitude } from "react-icons/tb";

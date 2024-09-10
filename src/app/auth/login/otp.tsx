@@ -1,25 +1,56 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import BackButton from "@/app/components/common/btn-back";
 import { Flex, Input } from "antd";
 import type { GetProps } from "antd";
 import CommonBtn from "@/app/components/common/button";
 import { OTPDataProps } from "@/utils/auth";
+import axios from "axios";
+import { VERIFY_USING_MOBILE_URL } from "@/constants/config";
+import { useAuth } from "@/context/AuthContext";
 
 type OTPProps = GetProps<typeof Input.OTP>;
 
-function PatientLoginOTP({ loginLabel, setStep }: OTPDataProps) {
+function PatientLoginOTP({
+  loginLabel,
+  setStep,
+  email,
+  mobileNo,
+}: OTPDataProps) {
+  const { isAuthenticated, login } = useAuth();
+
+  const [otpCode, setOtpCode] = useState("");
+
   const onChange: OTPProps["onChange"] = (text) => {
-    console.log("onChange:", text);
+    const numericText = text.replace(/[^0-9]/g, "");
+    setOtpCode(numericText.toString());
   };
 
   const sharedProps: OTPProps = {
     onChange,
   };
 
+  const verifyUsingMobile = async () => {
+    if (!isAuthenticated) {
+      axios
+        .post(VERIFY_USING_MOBILE_URL, {
+          phone: mobileNo,
+          otp: otpCode,
+        })
+        .then((response) => {
+          console.log("Login Success:", response.data);
+          setStep(3);
+          login(response.data);
+        })
+        .catch((error) => {
+          console.error("Error in Login:", error);
+        });
+    }
+  };
+
   const verifyOTP = () => {
     console.log("OTP Verified");
-    setStep(3);
+    verifyUsingMobile();
   };
 
   const resendOTP = () => {
@@ -37,20 +68,18 @@ function PatientLoginOTP({ loginLabel, setStep }: OTPDataProps) {
         <BackButton onClick={handleBackBtnClicked} />
         <p className="mt-[7.405vh] font-bold text-2xl">OTP Verification</p>
         <p className="mt-[2.225vh] text-sm text-grayText">
-          We sent an OTP Code to{" "}
+          We sent an OTP code to{" "}
           {loginLabel === "Email"
-            ? "kith****.*@opticalin.com"
-            : "+947 *** **47"}{" "}
-          enter 5 digit code that mentioned in the{" "}
+            ? `${email?.slice(0, 3)}****@${email?.split("@")[1]}`
+            : `${mobileNo?.slice(0, 3)}*****${mobileNo?.slice(-2)}`}
+          {". "}
+          Enter 5 digit code that mentioned in the{" "}
           {loginLabel === "Email" ? "email" : "SMS"}.
         </p>
 
         <div className="mt-[4.451vh] flex justify-center items-center">
           <Flex gap="middle" align="flex-start" vertical>
-            <Input.OTP
-              //formatter={(str) => str.toUpperCase()}
-              {...sharedProps}
-            />
+            <Input.OTP {...sharedProps} />
           </Flex>
         </div>
 

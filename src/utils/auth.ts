@@ -25,9 +25,15 @@ export interface LoginDataProps {
   loginLabel: string;
   setLoginLabel: (label: string) => void;
   setStep: (step: number) => void;
+  email?: string;
+  setEmail: (email: string) => void;
+  mobileNo?: string;
+  setMobileNo: (mobileNo: string) => void;
 }
 
 export interface OTPDataProps {
   loginLabel: string;
   setStep: (step: number) => void;
+  email?: string;
+  mobileNo?: string;
 }

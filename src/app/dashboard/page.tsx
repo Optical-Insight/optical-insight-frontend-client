@@ -1,10 +1,60 @@
 "use client";
 import Image from "next/image";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import HomeCard from "../components/dashboard/home-card";
 import DoctorCard from "../components/dashboard/doctor-card";
+import { useRouter } from "next/navigation";
+import type { MenuProps } from "antd";
+import { Dropdown } from "antd";
+import { useAuth } from "@/context/AuthContext";
+import ModalConfirm from "../components/common/modal-confirm";
+import { useDoctors } from "@/context/DoctorsContext";
+import { DoctorsAllProps } from "@/utils/doctor";
 
 function HomePage() {
+  const router = useRouter();
+  const { isAuthenticated, logout, userData } = useAuth();
+  const { doctors, fetchAllDoctors } = useDoctors();
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const diseases = "glaucoma";
+
+  const filteredDoctors = doctors.filter((doctor) =>
+    doctor.specialization.toLowerCase().includes(diseases.toLowerCase())
+  );
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      fetchAllDoctors();
+    }
+  }, [isAuthenticated]);
+
+  const handleLogout = () => {
+    setIsModalVisible(true);
+  };
+
+  const confirmLogout = () => {
+    setIsModalVisible(false);
+    logout();
+  };
+
+  console.log("Doctors:", doctors);
+
+  const items: MenuProps["items"] = [
+    {
+      key: "1",
+      label: <div className="font-semibold">Profile</div>,
+    },
+    {
+      key: "2",
+      label: (
+        <div className="font-semibold text-red-600" onClick={handleLogout}>
+          Logout
+        </div>
+      ),
+    },
+  ];
+
   return (
     <div className="w-screen h-screen flex flex-col bg-lightBg text-black">
       <div className=" my-[3vh] mx-[7.125vw]">
@@ -23,19 +73,23 @@ function HomePage() {
 
             {/* Name */}
             <div className="flex flex-col ml-[4.132vw] justify-center">
-              <p className="font-bold text-lg">Hi {"Kithmina,"}</p>
+              <p className="font-bold text-lg">
+                Hi {userData?.name.split(" ")[0]},
+              </p>
               <p className="ftext-lg">Welcome Back!</p>
             </div>
           </div>
 
           {/* Profile */}
           <div className="h-[6.676vh] w-[6.676vh] flex justify-center items-center">
-            <Image
-              src={"/assets/images/profile-icon.png"}
-              alt={"logo"}
-              height={48}
-              width={48}
-            />
+            <Dropdown menu={{ items }} placement="bottomRight">
+              <Image
+                src={"/assets/images/profile-icon.png"}
+                alt={"logo"}
+                height={48}
+                width={48}
+              />
+            </Dropdown>
           </div>
         </div>
 
@@ -44,14 +98,17 @@ function HomePage() {
           <HomeCard
             imageUrl={"/assets/images/report-bg.png"}
             text={"My Report Results"}
+            onClick={() => router.replace("/reports")}
           />
           <HomeCard
             imageUrl={"/assets/images/history-bg.png"}
             text={"My Medical History"}
+            onClick={() => {}}
           />
           <HomeCard
             imageUrl={"/assets/images/doctor-bg.png"}
-            text={"My Recent Doctors"}
+            text={"View All Doctors"}
+            onClick={() => router.replace("/doctors")}
           />
         </div>
 
@@ -73,23 +130,33 @@ function HomePage() {
             </button>
           </div>
 
-          {/* Doctor Cards */}
-          <div className="flex gap-[3.053vw]">
-            <DoctorCard
-              imageUrl={"/assets/images/doc.png"}
-              name={"Stephanie"}
-              price={"2500.00"}
-            />
-            <DoctorCard
-              imageUrl={"/assets/images/doc.png"}
-              name={"Stephanie"}
-              price={"2500.00"}
-            />
+          <div className="flex mt-2 gap-[3.053vw] overflow-x-auto whitespace-nowrap">
+            {filteredDoctors
+              .slice()
+              .sort((a: any, b: any) => b.rating - a.rating)
+              .map((doctor: DoctorsAllProps) => (
+                <DoctorCard
+                  key={doctor.userId}
+                  imageUrl={"/assets/images/blank-profile-picture.png"}
+                  name={doctor.name.split(" ")[0]} // Show only the first name
+                  price={doctor.fees}
+                  rating={doctor.rating}
+                />
+              ))}
           </div>
         </div>
       </div>
+
+      <ModalConfirm
+        title="Logout Confirmation"
+        message="Are you sure you want to logout?"
+        confirmLabel="Logout"
+        isOpen={isModalVisible}
+        onClose={() => setIsModalVisible(false)}
+        onConfirm={confirmLogout}
+      />
     </div>
   );
 }
-
+424433;
 export default HomePage;

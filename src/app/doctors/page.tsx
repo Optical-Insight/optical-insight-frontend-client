@@ -44,7 +44,7 @@ function DoctorsPage() {
     }
   }, [isAuthenticated]);
 
-  const specialization = [
+  const specializations = [
     { value: "", label: "Filter by Specialty" },
     { value: "Glaucoma", label: "Glaucoma" },
     { value: "Drusen", label: "Drusen" },
@@ -76,9 +76,9 @@ function DoctorsPage() {
             value={specialty}
             onChange={handleSpecialtyChange} // Correct onChange event
           >
-            {specialization.map((specialty) => (
-              <option key={specialty.value} value={specialty.value}>
-                {specialty.label}
+            {specializations.map((specialization) => (
+              <option key={specialization.value} value={specialization.value}>
+                {specialization.label}
               </option>
             ))}
           </select>

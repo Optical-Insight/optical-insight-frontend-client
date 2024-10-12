@@ -1,25 +1,9 @@
 import Image from "next/image";
+import { DoctorCardProps } from "@/utils/doctor";
 
-interface DoctorCardProps {
-  imageUrl: string;
-  name: string;
-  price: string;
-  rating: string;
-}
-
-const DoctorCard = ({ rating, imageUrl, name, price }: DoctorCardProps) => {
+const DoctorCard = ({ imageUrl, name, price }: DoctorCardProps) => {
   return (
-    <div className="rounded-lg bg-white min-w-[28vw]">
-      <div className="mt-[1.252vh] mx-[2.29vw] flex items-center">
-        <Image
-          className="rounded-xl"
-          src="/assets/icons/star.png"
-          alt="Star"
-          height={7}
-          width={14}
-        />
-        <p className="font-bold ml-[1.2vw] text-[10px]">{rating}</p>
-      </div>
+    <div className="rounded-lg bg-white min-w-[28vw] pt-1">
       <div className="mt-[1.113vh] flex justify-center ">
         <Image src={imageUrl} alt="profile picture" height={54} width={54} />
       </div>

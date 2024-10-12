@@ -1,11 +1,13 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import CommonBtn from "@/app/components/common/button";
 import { LoginDataProps } from "@/utils/auth";
 import Image from "next/image";
 import { useAuth } from "@/context/AuthContext";
 import axios from "axios";
 import { LOGIN_USING_MOBILE_URL } from "@/constants/config";
+import ModalAlert from "@/app/components/common/modal-alert";
+import { Toaster, toast } from "react-hot-toast";
 
 function PatientLogin({
   loginLabel,
@@ -17,18 +19,29 @@ function PatientLogin({
   setMobileNo,
 }: LoginDataProps) {
   const { isAuthenticated } = useAuth();
+  const [isLoading, setIsLoading] = useState(false);
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
   const LoginUsingMobile = async () => {
+    setIsLoading(true);
     if (!isAuthenticated) {
-      setStep(2);
       axios
         .post(LOGIN_USING_MOBILE_URL, {
           phone: mobileNo,
         })
         .then((response) => {
+          setIsLoading(false);
           console.log(response);
+          setStep(2);
         })
         .catch((error) => {
+          setIsLoading(false);
+          toast.error("Number not registered", {
+            duration: 4000,
+            position: "top-center",
+            style: {},
+          });
+          //setIsModalVisible(true);
           console.error("Error in Login:", error);
         });
     }
@@ -83,6 +96,26 @@ function PatientLogin({
 
   return (
     <div>
+      <div>
+        <Toaster
+          position="top-right"
+          reverseOrder={false}
+          toastOptions={{
+            success: {
+              style: {
+                background: "rgb(219, 234, 254)",
+              },
+            },
+            error: {
+              style: {
+                background: "rgb(219, 234, 254)",
+                marginTop: "8px",
+              },
+            },
+          }}
+        />
+      </div>
+
       <div className="mt-[14.047vh]">
         {/* HEADER */}
         <div className="flex flex-col items-center">
@@ -118,7 +151,11 @@ function PatientLogin({
           </div>
 
           <div className="w-full rounded-lg text-sm  h-[6.074vh] mt-[3.374vh]">
-            <CommonBtn label="Send OTP" onClick={handleSubmitLogin} />
+            <CommonBtn
+              label="Send OTP"
+              onClick={handleSubmitLogin}
+              isLoading={isLoading}
+            />
           </div>
 
           <div className="flex justify-center text-sm mt-[1.131vh]">
@@ -139,6 +176,14 @@ function PatientLogin({
           account
         </p>
       </div>
+
+      <ModalAlert
+        title="Login Error"
+        message="The phone number you have entered is not registered. Please try again with a registered phone number."
+        isOpen={isModalVisible}
+        onClose={() => setIsModalVisible(false)}
+        btnLabel="Okay"
+      />
     </div>
   );
 }

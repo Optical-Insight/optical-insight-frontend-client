@@ -53,6 +53,14 @@ export interface ModalInfoProps {
   onDelete: () => void;
 }
 
+export interface ModalAlertProps {
+  title: string;
+  message: string;
+  isOpen: boolean;
+  btnLabel: string;
+  onClose: () => void;
+}
+
 export interface SearchFilterProps {
   labelSearch: string;
   labelSelectOne: string;

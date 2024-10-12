@@ -3,54 +3,54 @@ import React, { useEffect, useState } from "react";
 import BackButton from "../components/common/btn-back";
 import DoctorsPageCard from "../components/doctors/all-doctor-card";
 import { useRouter } from "next/navigation";
-// import { GET_ALL_USERS_BY_TYPE_URL } from "@/constants/config";
-// import axios from "axios";
 import { useAuth } from "@/context/AuthContext";
 import { DoctorsAllProps } from "@/utils/doctor";
 import { useDoctors } from "@/context/DoctorsContext";
 
 function DoctorsPage() {
-  const { isAuthenticated } = useAuth();
   const router = useRouter();
-
-  // const [doctors, setDoctors] = useState<DoctorsAllProps[]>([]);
-  const [searchTerm, setSearchTerm] = useState("");
-
+  const { isAuthenticated } = useAuth();
   const { doctors, fetchAllDoctors } = useDoctors();
+
+  const [searchTerm, setSearchTerm] = useState("");
+  const [specialty, setSpecialty] = useState("");
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
   };
 
-  const filteredDoctors = doctors.filter(
-    (doctor) =>
-      doctor.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      doctor.specialization.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const handleSpecialtyChange = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    setSpecialty(event.target.value);
+  };
 
-  // const fetchAllDoctors = async () => {
-  //   try {
-  //     const response = await axios.get(GET_ALL_USERS_BY_TYPE_URL, {
-  //       headers: {
-  //         Authorization: `Bearer ${storedAuthData.accessToken}`,
-  //         "Content-Type": "application/json",
-  //       },
-  //     });
-  //     setDoctors(response.data);
-  //     console.log("Doctors data", response.data);
-  //   } catch (err: any) {
-  //     console.error(
-  //       "Error in retrieving data",
-  //       err.response?.data || err.message
-  //     );
-  //   }
-  // };
+  const filteredDoctors = doctors.filter((doctor) => {
+    const matchesSearchTerm =
+      doctor.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      doctor.specialization.toLowerCase().includes(searchTerm.toLowerCase());
+
+    const matchesSpecialty =
+      specialty === "Filter by Specialty" ||
+      specialty === "" ||
+      doctor.specialization.toLowerCase().includes(specialty.toLowerCase());
+
+    return matchesSearchTerm && matchesSpecialty;
+  });
 
   useEffect(() => {
     if (isAuthenticated) {
       fetchAllDoctors();
     }
   }, [isAuthenticated]);
+
+  const specialization = [
+    { value: "", label: "Filter by Specialty" },
+    { value: "Glaucoma", label: "Glaucoma" },
+    { value: "Drusen", label: "Drusen" },
+    { value: "Macular Hole", label: "Macular Hole" },
+    { value: "CSR", label: "CSR" },
+  ];
 
   return (
     <div className="w-screen h-screen flex flex-col bg-lightBg text-black">
@@ -61,14 +61,27 @@ function DoctorsPage() {
           <p className="ml-[4.071vw] font-bold text-lg">Available Doctors</p>
         </div>
 
-        {/* Search Bar */}
-        <div className="mt-[4.451vh] flex justify-center items-center">
+        <div className="mt-[4.451vh] flex justify-center items-center gap-3">
+          {/* Search Bar */}
           <input
             type="search"
-            className="pl-1 h-[6.12vh] w-full rounded-lg text-sm text-black"
+            className="pl-1 h-[6.12vh] w-7/12 rounded-lg text-sm text-black"
             placeholder="Search for a doctor"
             onChange={handleSearchChange}
           />
+
+          {/* Select by specialty */}
+          <select
+            className="pl-1 h-[6.12vh] w-5/12 rounded-lg text-sm text-black"
+            value={specialty}
+            onChange={handleSpecialtyChange} // Correct onChange event
+          >
+            {specialization.map((specialty) => (
+              <option key={specialty.value} value={specialty.value}>
+                {specialty.label}
+              </option>
+            ))}
+          </select>
         </div>
 
         {/* Body */}

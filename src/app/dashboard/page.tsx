@@ -131,18 +131,14 @@ function HomePage() {
           </div>
 
           <div className="flex mt-2 gap-[3.053vw] overflow-x-auto whitespace-nowrap">
-            {filteredDoctors
-              .slice()
-              .sort((a: any, b: any) => b.rating - a.rating)
-              .map((doctor: DoctorsAllProps) => (
-                <DoctorCard
-                  key={doctor.userId}
-                  imageUrl={"/assets/images/blank-profile-picture.png"}
-                  name={doctor.name.split(" ")[0]} // Show only the first name
-                  price={doctor.fees}
-                  rating={doctor.rating}
-                />
-              ))}
+            {filteredDoctors.slice().map((doctor: DoctorsAllProps) => (
+              <DoctorCard
+                key={doctor.userId}
+                imageUrl={"/assets/images/blank-profile-picture.png"}
+                name={doctor.name.split(" ")[0]} // Show only the first name
+                price={doctor.fees}
+              />
+            ))}
           </div>
         </div>
       </div>

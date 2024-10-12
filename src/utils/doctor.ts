@@ -10,6 +10,12 @@ export interface DoctorsAllProps {
   fees: string;
 }
 
+export interface DoctorCardProps {
+  imageUrl: string;
+  name: string;
+  price: string;
+}
+
 export interface DoctorsContextType {
   doctors: DoctorsAllProps[];
   searchTerm: string;

@@ -1,7 +1,7 @@
 "use client";
 import React, { createContext, useState, useContext, ReactNode } from "react";
 import axios from "axios";
-import { DoctorsAllProps, DoctorsContextType } from "@/utils/doctor"; // Ensure these types are correctly defined
+import { DoctorsAllProps, DoctorsContextType } from "@/utils/doctor";
 import { GET_ALL_USERS_BY_TYPE_URL } from "@/constants/config";
 import { useAuth } from "./AuthContext";
 

@@ -9,7 +9,7 @@ interface HomeCardProps {
 const HomeCard = ({ imageUrl, text, onClick }: HomeCardProps) => {
   return (
     <div
-      className="h-[12.517vh] px-[4.58vw] rounded-xl flex items-center bg-no-repeat bg-center bg-cover"
+      className="h-[12.517vh] px-[4.58vw] rounded-xl flex items-center bg-no-repeat bg-center bg-cover cursor-pointer"
       style={{ backgroundImage: `url('${imageUrl}')` }}
       onClick={onClick}
     >

@@ -81,7 +81,7 @@ function HomePage() {
           </div>
 
           {/* Profile */}
-          <div className="h-[6.676vh] w-[6.676vh] flex justify-center items-center">
+          <div className="h-[6.676vh] w-[6.676vh] flex justify-center items-center cursor-pointer">
             <Dropdown menu={{ items }} placement="bottomRight">
               <Image
                 src={"/assets/images/profile-icon.png"}

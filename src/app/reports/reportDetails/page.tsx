@@ -1,14 +1,14 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import axios from "axios";
+import { Flex, Spin } from "antd";
 import { GET_REPORT_BY_ID } from "@/constants/config";
 import { useAuth } from "@/context/AuthContext";
 import BackButton from "@/app/components/common/btn-back";
-import { Flex, Spin } from "antd";
 import CommonBtn from "@/app/components/common/button";
+import axios from "axios";
 
-function ReportDetails() {
+function ReportDetailsComponent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const reportId = searchParams.get("reportId");
@@ -155,4 +155,12 @@ function ReportDetails() {
   );
 }
 
-export default ReportDetails;
+function ReportDetailsWrapper() {
+  return (
+    <Suspense fallback={<div>Loading report details...</div>}>
+      <ReportDetailsComponent />
+    </Suspense>
+  );
+}
+
+export default ReportDetailsWrapper;

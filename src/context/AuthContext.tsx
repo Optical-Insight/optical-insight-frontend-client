@@ -91,7 +91,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   //Logout function
   const logout = () => {
     setIsAuthenticated(false);
-    Cookies.remove("authData"); // Remove authData from cookies
+    Cookies.remove("authData");
     router.replace("/auth/login");
   };
 

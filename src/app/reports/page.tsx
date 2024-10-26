@@ -29,7 +29,7 @@ function ReportsListPage() {
           "Content-Type": "application/json",
         },
       });
-      console.log("response", response.data);
+
       setRows(response.data);
     } catch (err: any) {
       console.error(

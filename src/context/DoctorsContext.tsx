@@ -34,7 +34,6 @@ export const DoctorsProvider: React.FC<DoctorsProviderProps> = ({
         },
       });
       setDoctors(response.data);
-      console.log("Doctors data", response.data);
     } catch (err: any) {
       console.error(
         "Error in retrieving data",

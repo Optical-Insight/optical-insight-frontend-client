@@ -69,8 +69,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
   //Login function
   const login = (response: AuthData) => {
-    console.log("Login Success:", response);
-
     const authData: AuthData = {
       accessToken: response.accessToken,
       refreshToken: response.refreshToken,

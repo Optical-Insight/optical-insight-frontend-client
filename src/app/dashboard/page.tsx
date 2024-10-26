@@ -17,11 +17,11 @@ function HomePage() {
   const { doctors, fetchAllDoctors } = useDoctors();
   const [isModalVisible, setIsModalVisible] = useState(false);
 
-  const diseases = "glaucoma";
+  // const diseases = "glaucoma";
 
-  const filteredDoctors = doctors.filter((doctor) =>
-    doctor.specialization.toLowerCase().includes(diseases.toLowerCase())
-  );
+  // const filteredDoctors = doctors.filter((doctor) =>
+  //   doctor.specialization.toLowerCase().includes(diseases.toLowerCase())
+  // );
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -38,12 +38,17 @@ function HomePage() {
     logout();
   };
 
-  console.log("Doctors:", doctors);
-
   const items: MenuProps["items"] = [
     {
       key: "1",
-      label: <div className="font-semibold">Profile</div>,
+      label: (
+        <div
+          className="font-semibold"
+          onClick={() => router.replace("/profile")}
+        >
+          Profile
+        </div>
+      ),
     },
     {
       key: "2",
@@ -58,21 +63,30 @@ function HomePage() {
   return (
     <div className="w-screen h-screen flex flex-col bg-lightBg text-black">
       <div className=" my-[3vh] mx-[7.125vw]">
+        <div className="flex justify-center mt-4 bg-greenBlueBg rounded-xl py-4">
+          <Image
+            src={"/assets/images/logo-dark.png"}
+            alt={"logo"}
+            height={40}
+            width={150}
+          />
+        </div>
+
         {/* Header */}
-        <div className="flex justify-between w-full">
-          <div className="flex">
+        <div className="flex justify-between w-full mt-6">
+          <div className="flex ">
             {/* Logo */}
-            <div className="h-[6.676vh] w-[6.676vh] bg-white rounded-lg flex justify-center items-center">
+            {/* <div className="h-[6.676vh] w-[6.676vh] bg-white rounded-lg flex justify-center items-center">
               <Image
                 src={"/assets/images/logo-eye.png"}
                 alt={"logo"}
                 height={20}
                 width={40}
               />
-            </div>
+            </div> */}
 
             {/* Name */}
-            <div className="flex flex-col ml-[4.132vw] justify-center">
+            <div className="flex flex-col ml-[1vw] justify-center">
               <p className="font-bold text-lg">
                 Hi {userData?.name.split(" ")[0]},
               </p>
@@ -81,13 +95,13 @@ function HomePage() {
           </div>
 
           {/* Profile */}
-          <div className="h-[6.676vh] w-[6.676vh] flex justify-center items-center cursor-pointer">
+          <div className="h-[7vh] w-[7vh] border-r-[50%] flex justify-center items-center cursor-pointer">
             <Dropdown menu={{ items }} placement="bottomRight">
               <Image
-                src={"/assets/images/profile-icon.png"}
+                src={"/assets/images/empty-profile.jpg"}
                 alt={"logo"}
-                height={48}
-                width={48}
+                height={50}
+                width={50}
               />
             </Dropdown>
           </div>
@@ -100,11 +114,11 @@ function HomePage() {
             text={"My Report Results"}
             onClick={() => router.replace("/reports")}
           />
-          <HomeCard
+          {/* <HomeCard
             imageUrl={"/assets/images/history-bg.png"}
             text={"My Medical History"}
             onClick={() => {}}
-          />
+          /> */}
           <HomeCard
             imageUrl={"/assets/images/doctor-bg.png"}
             text={"View All Doctors"}
@@ -118,24 +132,25 @@ function HomePage() {
             <p className="font-bold text-[16px]">Suggested Doctors</p>
             <button
               className="bg-transparent text-grayText rounded-lg px-[3.75vw] py-[1.25vh]
-          flex justify-center items-center"
+          flex justify-center items-center mt-4"
             >
-              <p className="mr-2 text-sm">See all</p>
+              {/* <p className="mr-2 text-sm">See all</p>
               <Image
                 src={"/assets/icons/right-arrow.png"}
                 alt={"logo"}
                 height={10}
                 width={6}
-              />
+              /> */}
             </button>
           </div>
 
           <div className="flex mt-2 gap-[3.053vw] overflow-x-auto whitespace-nowrap">
-            {filteredDoctors.slice().map((doctor: DoctorsAllProps) => (
+            {doctors.slice().map((doctor: DoctorsAllProps) => (
               <DoctorCard
                 key={doctor.userId}
                 imageUrl={"/assets/images/blank-profile-picture.png"}
-                name={doctor.name.split(" ")[0]} // Show only the first name
+                name={doctor.name.split(" ")[0]}
+                specialization={doctor.specialization}
                 price={doctor.fees}
               />
             ))}

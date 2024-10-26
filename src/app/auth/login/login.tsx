@@ -51,7 +51,6 @@ function PatientLogin({
     if (loginLabel === "Email") {
       console.log("Email: ", email);
     } else {
-      console.log("Mobile: ", mobileNo);
       LoginUsingMobile();
     }
   };

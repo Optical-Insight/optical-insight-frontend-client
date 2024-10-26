@@ -7,8 +7,6 @@ export function middleware(req: NextRequest) {
   // Define routes that require authentication
   const protectedRoutes = ["/dashboard"];
 
-  console.log("middleware");
-
   if (
     !token &&
     protectedRoutes.some((route) => req.nextUrl.pathname.startsWith(route))

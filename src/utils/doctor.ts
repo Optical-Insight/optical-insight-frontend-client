@@ -13,6 +13,7 @@ export interface DoctorsAllProps {
 export interface DoctorCardProps {
   imageUrl: string;
   name: string;
+  specialization: string;
   price: string;
 }
 

@@ -33,6 +33,7 @@ const config: Config = {
         inputBg: "#F5F8FC",
         dashbordIconBg: "#F0F5FB",
         greenishBlueBg: "#62c8d6",
+        greenBlueBg: "#d7eff8",
 
         //texts
         headerText: "#262E34",

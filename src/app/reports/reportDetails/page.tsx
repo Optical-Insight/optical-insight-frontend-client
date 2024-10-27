@@ -2,7 +2,11 @@
 import React, { Suspense, useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Flex, Spin } from "antd";
-import { CREATE_REPORT, GET_REPORT_BY_ID } from "@/constants/config";
+import {
+  CREATE_REPORT,
+  GET_REPORT_BY_ID,
+  GET_USER_BY_ID_URL,
+} from "@/constants/config";
 import { useAuth } from "@/context/AuthContext";
 import BackButton from "@/app/components/common/btn-back";
 import CommonBtn from "@/app/components/common/button";
@@ -17,6 +21,7 @@ function ReportDetailsComponent() {
   const [report, setReport] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isGeneratingReport, setIsGeneratingReport] = useState<string[]>([]);
+  const [patient, setPatient] = useState<any>(null);
 
   const fetchReportDetails = async () => {
     if (!reportId || !storedAuthData) {
@@ -42,6 +47,36 @@ function ReportDetailsComponent() {
       setIsLoading(false);
     }
   };
+
+  const fetchPatientDetails = async () => {
+    if (!storedAuthData) {
+      console.error("Authorization data is missing");
+      return;
+    }
+
+    try {
+      const response = await axios.get(
+        `${GET_USER_BY_ID_URL}${storedAuthData.userId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${storedAuthData.accessToken}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log("Patient data:", response);
+      setPatient(response.data);
+    } catch (err: any) {
+      console.error(
+        "Error in retrieving data",
+        err.response?.data || err.message
+      );
+    }
+  };
+
+  useEffect(() => {
+    fetchPatientDetails();
+  }, [storedAuthData]);
 
   useEffect(() => {
     fetchReportDetails();
@@ -102,7 +137,7 @@ function ReportDetailsComponent() {
                   </div>
                   <div className="font-semibold">
                     <p className="mb-1">{report.reportId}</p>
-                    <p className="mb-1">{report.patientId}</p>
+                    <p className="mb-1">{patient.name}</p>
                     <p className="mb-1">{report.createdBy}</p>
                     <p className="mb-1">
                       {new Date(report.createdAt).toLocaleDateString()}
@@ -110,7 +145,13 @@ function ReportDetailsComponent() {
                     <p className="mb-1">
                       {new Date(report.createdAt).toLocaleTimeString()}
                     </p>
-                    <p className="mb-1 text-green-700">
+                    <p
+                      className={`mb-1 ${
+                        report.status === "pending"
+                          ? "text-yellow-600"
+                          : "text-green-700"
+                      } `}
+                    >
                       {report.status.charAt(0).toUpperCase() +
                         report.status.slice(1)}
                     </p>
@@ -126,13 +167,17 @@ function ReportDetailsComponent() {
               {report ? (
                 <div key={report.reportId} className="mb-2 flex flex-col">
                   <p className="font-semibold mb-2">Suggestions:</p>
-                  <ul className="list-disc pl-5">
-                    {report.openAiRecommendation.map((suggestion: string) => (
-                      <li key={suggestion} className="text-sm mb-1">
-                        {suggestion}
-                      </li>
-                    ))}
-                  </ul>
+                  {report.openAiRecommendation ? (
+                    <ul className="list-disc pl-5">
+                      {report.openAiRecommendation.map((suggestion: string) => (
+                        <li key={suggestion} className="text-sm mb-1">
+                          {suggestion}
+                        </li>
+                      ))}
+                    </ul>
+                  ) : (
+                    <p>No suggestions found.</p>
+                  )}
                 </div>
               ) : (
                 <p>No report found.</p>
@@ -147,7 +192,7 @@ function ReportDetailsComponent() {
                     label="View Report"
                     onClick={() => generateReport(report.reportId)}
                     isLoading={isGeneratingReport.includes(report.reportId)}
-                    // isBtnDisabled={report.status === "pending"}
+                    isBtnDisabled={report.status === "pending"}
                     type="Primary"
                   />
                 </div>

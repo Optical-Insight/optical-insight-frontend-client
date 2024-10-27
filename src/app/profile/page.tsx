@@ -47,7 +47,7 @@ function PatientComponent() {
   }, [storedAuthData]);
 
   return (
-    <div className="w-screen h-screen flex flex-col bg-lightBg text-black">
+    <div className="w-screen min-h-screen h-full flex flex-col bg-lightBg text-black">
       <div className="my-[3vh] mx-[7.125vw]">
         {/* Header */}
         <div className="flex items-center">
@@ -66,43 +66,125 @@ function PatientComponent() {
             {/* Body */}
             <div className="px-[3.817vw] py-[2.086vh] rounded-lg bg-white flex flex-col gap-[1.4vh] ">
               {profile ? (
-                <div
-                  key={profile.userId}
-                  className="flex flex-row gap-4 text-sm"
-                >
-                  <div>
-                    <p className="mb-1">Patient ID:</p>
-                    <p className="mb-1">Name:</p>
-                    <p className="mb-1">Email:</p>
-                    <p className="mb-1">Phone No:</p>
+                <div key={profile.userId}>
+                  <div className="grid span w-full text-[12px]">
+                    {profile.userId && (
+                      <span className="flex flex-row justify-start items-center gap-7">
+                        <p className="mb-1 w-[80px]">Patient ID:</p>
+                        <p className="mb-1 font-semibold">{profile.userId}</p>
+                      </span>
+                    )}
+                    {profile.name && (
+                      <span className="flex flex-row justify-start items-center gap-7">
+                        <p className="mb-1 w-[80px]">Name:</p>
+                        <p className="mb-1 font-semibold  w-[120px]">
+                          {profile.name}
+                        </p>
+                      </span>
+                    )}
+                    {profile.email && (
+                      <span className="flex flex-row justify-start items-center gap-7">
+                        <p className="mb-1 w-[80px]">Email:</p>
+                        <p className="mb-1 font-semibold  w-[120px]">
+                          {profile.email}
+                        </p>
+                      </span>
+                    )}
+                    {profile.phone && (
+                      <span className="flex flex-row justify-start items-center gap-7">
+                        <p className="mb-1 w-[80px]">Phone No:</p>
+                        <p className="mb-1 font-semibold">{profile.phone}</p>
+                      </span>
+                    )}
                     <br />
-                    <p className="mb-1">Patient ID:</p>
-                    <p className="mb-1">Name:</p>
-                    <p className="mb-1">Email:</p>
-                    <p className="mb-1">Phone No:</p>
+                    {profile.weight && (
+                      <span className="flex flex-row justify-start items-center gap-7">
+                        <p className="mb-1 w-[80px]">Weight:</p>
+                        <p className="mb-1 font-semibold">{profile.weight}</p>
+                      </span>
+                    )}
+                    {profile.height && (
+                      <span className="flex flex-row justify-start items-center gap-7">
+                        <p className="mb-1 w-[80px]">Height:</p>
+                        <p className="mb-1 font-semibold">{profile.height}</p>
+                      </span>
+                    )}
+                    {profile.age && (
+                      <span className="flex flex-row justify-start items-center gap-7">
+                        <p className="mb-1 w-[80px]">Age:</p>
+                        <p className="mb-1 font-semibold">{profile.age}</p>
+                      </span>
+                    )}
+                    {profile.dateOfBirth && (
+                      <span className="flex flex-row justify-start items-center gap-7">
+                        <p className="mb-1 w-[80px]">Date Of Birth:</p>
+                        <p className="mb-1 font-semibold">
+                          {profile.dateOfBirth}
+                        </p>
+                      </span>
+                    )}
                     <br />
-                    <p className="mb-1">Patient ID:</p>
-                    <p className="mb-1">Name:</p>
-                    <p className="mb-1">Email:</p>
-                    <p className="mb-1">Phone No:</p>
-                    {/* <p className="mb-1">Created Time:</p>
-                    <p className="mb-1">Status:</p> */}
-                  </div>
-                  <div className="font-semibold">
-                    <p className="mb-1">{profile.userId}</p>
-                    <p className="mb-1">{profile.name}</p>
-                    <p className="mb-1">{profile.email}</p>
-                    <p className="mb-1">{profile.phone}</p>
-                    {/* <p className="mb-1">
-                      {new Date(profile.createdAt).toLocaleDateString()}
-                    </p>
-                    <p className="mb-1">
-                      {new Date(profile.createdAt).toLocaleTimeString()}
-                    </p>
-                    <p className="mb-1 text-green-700">
-                      {profile.status.charAt(0).toUpperCase() +
-                        profile.status.slice(1)}
-                    </p> */}
+                    {profile.currentMedications && (
+                      <span className="flex flex-row justify-start items-center gap-7">
+                        <p className="mb-1 w-[120px]">Current Medications:</p>
+                        <p className="mb-1 w-[120px] font-semibold">
+                          {profile.currentMedications}
+                        </p>
+                      </span>
+                    )}
+                    <br />
+                    {profile.eyeDiscomfort && (
+                      <span className="flex flex-row justify-start items-center gap-7">
+                        <p className="mb-1 w-[120px]">Eye Discomfort:</p>
+                        <p className="mb-1 w-[120px] font-semibold">
+                          {profile.eyeDiscomfort}
+                        </p>
+                      </span>
+                    )}
+                    <br />
+                    {profile.historyOfSmokingAndAlcoholConsumption && (
+                      <span className="flex flex-row justify-start items-center gap-7">
+                        <p className="mb-1 w-[120px]">
+                          History Of Smoking And Alcohol Consumption:
+                        </p>
+                        <p className="mb-1 font-semibold w-[120px]">
+                          {profile.historyOfSmokingAndAlcoholConsumption}
+                        </p>
+                      </span>
+                    )}
+                    <br />
+                    {profile.generalMedicalHistory && (
+                      <span className="flex flex-row justify-start items-center gap-7">
+                        <p className="mb-1 w-[120px]">
+                          General Medical History:
+                        </p>
+                        <p className="mb-1 font-semibold w-[120px]">
+                          {profile.generalMedicalHistory}
+                        </p>
+                      </span>
+                    )}
+                    <br />
+                    {profile.glassesOrContactLenseUsage && (
+                      <span className="flex flex-row justify-start items-center gap-7">
+                        <p className="mb-1 w-[120px]">
+                          Glasses Or Contact Lense Usage:
+                        </p>
+                        <p className="mb-1 font-semibold w-[120px]">
+                          {profile.glassesOrContactLenseUsage}
+                        </p>
+                      </span>
+                    )}
+                    <br />
+                    {profile.pastEyeProblemsOrSurgeries && (
+                      <span className="flex flex-row justify-start items-center gap-7">
+                        <p className="mb-1 w-[120px]">
+                          Past Eye Problems Or Surgeries:
+                        </p>
+                        <p className="mb-1 font-semibold w-[120px]">
+                          {profile.pastEyeProblemsOrSurgeries}
+                        </p>
+                      </span>
+                    )}
                   </div>
                 </div>
               ) : (

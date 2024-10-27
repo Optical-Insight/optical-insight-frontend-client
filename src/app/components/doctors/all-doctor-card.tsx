@@ -5,7 +5,6 @@ interface DoctorsPageCardProps {
   name: string;
   specialty: string;
   experience: string;
-  rating: string;
 }
 
 const DoctorsPageCard = ({
@@ -13,7 +12,6 @@ const DoctorsPageCard = ({
   name,
   specialty,
   experience,
-  rating,
 }: DoctorsPageCardProps) => {
   return (
     <div className="px-[4.071vw] py-[1.971vh] rounded-lg bg-white flex flex-row gap-[4.5vw]">
@@ -31,15 +29,6 @@ const DoctorsPageCard = ({
         </p>
         <p className="text-blueText text-[14px]">{specialty}</p>
         <p className="text-grayText text-[12px]">{experience}</p>
-        <div className="mt-[0.7vh] flex items-center">
-          <Image
-            src="/assets/icons/star.png"
-            alt="Star"
-            height={7}
-            width={14}
-          />
-          <p className="font-bold ml-[1.2vw] text-[10px]">{rating}</p>
-        </div>
       </div>
     </div>
   );

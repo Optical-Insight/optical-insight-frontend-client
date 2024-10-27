@@ -10,5 +10,6 @@ export const GET_USER_BY_ID_URL = `${AUTH_BASE_URL}/api/users/`;
 export const GET_ALL_USERS_BY_TYPE_URL = `${AUTH_BASE_URL}/api/users/by-type?type=doctor`;
 
 export const GET_REPORTS_BY_USER_ID = `${BFF_ADMIN_URL}/api/reports/`;
+export const GET_REPORTS_BY_PATIENT_ID = `${API_REPORT_URL}/reports/getReportByPatient/`;
 export const GET_REPORT_BY_ID = `${BFF_ADMIN_URL}/api/reports/`;
 export const CREATE_REPORT = `${API_REPORT_URL}/reports/generatePdf/`;

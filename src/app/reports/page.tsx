@@ -23,13 +23,14 @@ function ReportsListPage() {
   const fetchAllReports = async () => {
     try {
       setIsLoading(true);
+      // const response = await axios.get(`${GET_REPORTS_BY_USER_ID}PAT347472`, {
       const response = await axios.get(GET_REPORTS_BY_USER_ID, {
         headers: {
           Authorization: `Bearer ${storedAuthData.accessToken}`,
           "Content-Type": "application/json",
         },
       });
-
+      console.log("response", response);
       setRows(response.data);
     } catch (err: any) {
       console.error(
@@ -45,9 +46,11 @@ function ReportsListPage() {
     if (storedAuthData) fetchAllReports();
   }, [storedAuthData]);
 
-  const filteredRows = rows.filter((report) =>
-    report.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredRows =
+    rows &&
+    rows.filter((report) =>
+      report.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
 
   return (
     <div className="w-screen h-screen flex flex-col bg-lightBg text-black">
@@ -79,16 +82,17 @@ function ReportsListPage() {
 
             {/* Body */}
             <div className="mt-[3.338vh] flex flex-col gap-[1.4vh]">
-              {filteredRows.map((report) => (
-                <ReportListCard
-                  key={report.reportId}
-                  reportId={report.reportId}
-                  createdBy={report.createdBy}
-                  createdAt={report.createdAt}
-                  status={report.status}
-                  onClick={() => handleCardClick(report.reportId)}
-                />
-              ))}
+              {filteredRows &&
+                filteredRows.map((report) => (
+                  <ReportListCard
+                    key={report.reportId}
+                    reportId={report.reportId}
+                    createdBy={report.createdBy}
+                    createdAt={report.createdAt}
+                    status={report.status}
+                    onClick={() => handleCardClick(report.reportId)}
+                  />
+                ))}
               {!isLoading && filteredRows.length === 0 && (
                 <p>No reports found.</p>
               )}

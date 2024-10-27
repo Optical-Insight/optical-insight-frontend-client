@@ -98,7 +98,7 @@ function HomePage() {
           <div className="h-[7vh] w-[7vh] border-r-[50%] flex justify-center items-center cursor-pointer">
             <Dropdown menu={{ items }} placement="bottomRight">
               <Image
-                src={"/assets/images/empty-profile.jpg"}
+                src={"/assets/images/empty-profile.png"}
                 alt={"logo"}
                 height={50}
                 width={50}

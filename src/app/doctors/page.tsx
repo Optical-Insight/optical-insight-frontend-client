@@ -93,7 +93,6 @@ function DoctorsPage() {
               name={doctor.name}
               specialty={doctor.specialization}
               experience={`${doctor.experience} years experience`}
-              rating={doctor.rating}
             />
           ))}
         </div>

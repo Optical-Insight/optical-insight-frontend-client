@@ -14,7 +14,7 @@ import { DoctorsAllProps } from "@/utils/doctor";
 function HomePage() {
   const router = useRouter();
   const { isAuthenticated, logout, userData } = useAuth();
-  const { doctors, fetchAllDoctors } = useDoctors();
+  const { suggestedDoctors, getSuggestedDoctors } = useDoctors();
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   // const diseases = "glaucoma";
@@ -24,10 +24,10 @@ function HomePage() {
   // );
 
   useEffect(() => {
-    if (isAuthenticated) {
-      fetchAllDoctors();
+    if (isAuthenticated && userData?.userId) {
+      getSuggestedDoctors(userData.userId);
     }
-  }, [isAuthenticated]);
+  }, [isAuthenticated, userData]);
 
   const handleLogout = () => {
     setIsModalVisible(true);
@@ -145,7 +145,7 @@ function HomePage() {
           </div>
 
           <div className="flex mt-2 gap-[3.053vw] overflow-x-auto whitespace-nowrap">
-            {doctors.slice().map((doctor: DoctorsAllProps) => (
+            {suggestedDoctors.slice().map((doctor: DoctorsAllProps) => (
               <DoctorCard
                 key={doctor.userId}
                 imageUrl={"/assets/images/blank-profile-picture.png"}

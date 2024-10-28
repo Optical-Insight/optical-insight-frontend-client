@@ -10,11 +10,8 @@ import ModalAlert from "@/app/components/common/modal-alert";
 import { Toaster, toast } from "react-hot-toast";
 
 function PatientLogin({
-  loginLabel,
-  setLoginLabel,
   setStep,
-  email,
-  setEmail,
+
   mobileNo,
   setMobileNo,
 }: LoginDataProps) {
@@ -29,9 +26,8 @@ function PatientLogin({
         .post(LOGIN_USING_MOBILE_URL, {
           phone: mobileNo,
         })
-        .then((response) => {
+        .then(() => {
           setIsLoading(false);
-          console.log(response);
           setStep(2);
         })
         .catch((error) => {
@@ -48,49 +44,7 @@ function PatientLogin({
   };
 
   const handleSubmitLogin = () => {
-    if (loginLabel === "Email") {
-      console.log("Email: ", email);
-    } else {
-      LoginUsingMobile();
-    }
-  };
-
-  // const LoginUsingEmail = async (e: any) => {
-  //   if (!isAuthenticated) {
-  //     e.preventDefault();
-  //     axios
-  //       .post(LOGIN_USING_MOBILE_URL, {
-  //         email,
-  //       })
-  //       .then((response) => {
-  //         console.log("Login Success:", response.data);
-  //         //login(response.data);
-  //       })
-  //       .catch((error) => {
-  //         console.error("Error in Login:", error);
-  //       });
-  //   }
-  // };
-
-  // const verifyUsingEmail = async (e: any) => {
-  //   if (!isAuthenticated) {
-  //     e.preventDefault();
-  //     axios
-  //       .post(VERIFY_USING_MOBILE_URL, {
-  //         email,
-  //       })
-  //       .then((response) => {
-  //         console.log("Login Success:", response.data);
-  //         //login(response.data);
-  //       })
-  //       .catch((error) => {
-  //         console.error("Error in Login:", error);
-  //       });
-  //   }
-  // };
-
-  const handleChangeLoginMethod = () => {
-    setLoginLabel(loginLabel === "Email" ? "Phone" : "Email");
+    LoginUsingMobile();
   };
 
   return (
@@ -131,20 +85,12 @@ function PatientLogin({
           <p className="text-[40px] text-headerText font-bold">Login</p>
 
           <div className="mt-[5.512vh]">
-            <label className="block text-sm text-labelText">
-              {loginLabel === "Email" ? "Email Address" : "Phone Number"}
-            </label>
+            <label className="block text-sm text-labelText">Phone Number</label>
             <input
               className="w-full pl-1 rounded-lg text-sm text-black h-[6.079vh] mt-[1.164vh]"
-              placeholder={
-                loginLabel === "Email"
-                  ? "kithminasiriwardana@gmail.com"
-                  : "0123456789"
-              }
+              placeholder="0123456789"
               onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                loginLabel === "Email"
-                  ? setEmail(event.target.value)
-                  : setMobileNo(event.target.value);
+                setMobileNo(event.target.value);
               }}
             />
           </div>
@@ -155,15 +101,6 @@ function PatientLogin({
               onClick={handleSubmitLogin}
               isLoading={isLoading}
             />
-          </div>
-
-          <div className="flex justify-center text-sm mt-[1.131vh]">
-            <p
-              className="text-blueText cursor-pointer"
-              onClick={handleChangeLoginMethod}
-            >
-              Or continue with {loginLabel === "Email" ? "Phone" : "Email"}
-            </p>
           </div>
         </div>
       </div>

@@ -14,7 +14,7 @@ const defaultState: DoctorsContextType = {
   searchTerm: "",
   setSearchTerm: () => {},
   fetchAllDoctors: async () => {},
-  getSuggestedDoctors: async (patientID: string) => {},
+  getSuggestedDoctors: async () => {},
 };
 
 const DoctorsContext = createContext<DoctorsContextType>(defaultState);

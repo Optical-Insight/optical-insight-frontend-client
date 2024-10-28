@@ -48,7 +48,7 @@ function DoctorsPage() {
     { value: "", label: "Filter by Specialty" },
     { value: "Glaucoma", label: "Glaucoma" },
     { value: "Drusen", label: "Drusen" },
-    { value: "Macular Hole", label: "Macular Hole" },
+    { value: "MH", label: "Macular Hole" },
     { value: "CSR", label: "CSR" },
   ];
 

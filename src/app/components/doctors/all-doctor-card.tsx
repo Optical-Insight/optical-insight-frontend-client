@@ -27,7 +27,9 @@ const DoctorsPageCard = ({
           {"Dr."}
           {name}
         </p>
-        <p className="text-blueText text-[14px]">{specialty}</p>
+        <p className="text-blueText text-[14px]">
+          Eye Specialist - {specialty}
+        </p>
         <p className="text-grayText text-[12px]">{experience}</p>
       </div>
     </div>

@@ -8,6 +8,7 @@ export const VERIFY_USING_MOBILE_URL = `${BFF_PATIENT_URL}/api/patients/verify-o
 
 export const GET_USER_BY_ID_URL = `${AUTH_BASE_URL}/api/users/`;
 export const GET_ALL_USERS_BY_TYPE_URL = `${AUTH_BASE_URL}/api/users/by-type?type=doctor`;
+export const GET_ALL_SUGGESTED_DOCTORS_URL = `${AUTH_BASE_URL}/api/users/getSuggestedDoctors`;
 
 export const GET_REPORTS_BY_USER_ID = `${BFF_ADMIN_URL}/api/reports/`;
 export const GET_REPORTS_BY_PATIENT_ID = `${API_REPORT_URL}/reports/getReportByPatient/`;

@@ -14,7 +14,7 @@ import { DoctorsAllProps } from "@/utils/doctor";
 function HomePage() {
   const router = useRouter();
   const { isAuthenticated, logout, userData } = useAuth();
-  const { doctors, fetchAllDoctors } = useDoctors();
+  const { suggestedDoctors, getSuggestedDoctors } = useDoctors();
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   // const diseases = "glaucoma";
@@ -24,10 +24,10 @@ function HomePage() {
   // );
 
   useEffect(() => {
-    if (isAuthenticated) {
-      fetchAllDoctors();
+    if (isAuthenticated && userData?.userId) {
+      getSuggestedDoctors(userData.userId);
     }
-  }, [isAuthenticated]);
+  }, [isAuthenticated, userData]);
 
   const handleLogout = () => {
     setIsModalVisible(true);
@@ -144,17 +144,23 @@ function HomePage() {
             </button>
           </div>
 
-          <div className="flex mt-2 gap-[3.053vw] overflow-x-auto whitespace-nowrap">
-            {doctors.slice().map((doctor: DoctorsAllProps) => (
-              <DoctorCard
-                key={doctor.userId}
-                imageUrl={"/assets/images/blank-profile-picture.png"}
-                name={doctor.name.split(" ")[0]}
-                specialization={doctor.specialization}
-                price={doctor.fees}
-              />
-            ))}
-          </div>
+          {suggestedDoctors.length === 0 ? (
+            <div className="flex flex-row justify-center items-center h-40 text-[13px] text-gray-500">
+              No suggestions available.
+            </div>
+          ) : (
+            <div className="flex mt-2 gap-[3.053vw] overflow-x-auto whitespace-nowrap">
+              {suggestedDoctors.slice().map((doctor: DoctorsAllProps) => (
+                <DoctorCard
+                  key={doctor.userId}
+                  imageUrl={"/assets/images/blank-profile-picture.png"}
+                  name={doctor.name.split(" ")[0]}
+                  specialization={doctor.specialization}
+                  price={doctor.fees}
+                />
+              ))}
+            </div>
+          )}
         </div>
       </div>
 

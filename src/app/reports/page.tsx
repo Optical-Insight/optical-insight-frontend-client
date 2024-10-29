@@ -30,8 +30,14 @@ function ReportsListPage() {
           "Content-Type": "application/json",
         },
       });
-      console.log("response", response);
-      setRows(response.data);
+
+      const filteredReportByUserId = response.data.filter(
+        (report: ReportListAllProps) =>
+          report.patientId === storedAuthData.userId
+      );
+
+      console.log("response", filteredReportByUserId);
+      setRows(filteredReportByUserId);
     } catch (err: any) {
       console.error(
         "Error in retrieving data",

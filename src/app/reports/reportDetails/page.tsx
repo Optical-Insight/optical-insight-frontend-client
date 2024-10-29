@@ -137,7 +137,7 @@ function ReportDetailsComponent() {
                   </div>
                   <div className="font-semibold">
                     <p className="mb-1">{report.reportId}</p>
-                    <p className="mb-1">{patient.name}</p>
+                    <p className="mb-1">{patient && patient.name}</p>
                     <p className="mb-1">{report.createdBy}</p>
                     <p className="mb-1">
                       {new Date(report.createdAt).toLocaleDateString()}
